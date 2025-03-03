@@ -25,7 +25,7 @@ export const AppProvider = ({ children }) => {
   const [codeAttempts, setCodeAttempts] = useState(0);
   const [age, setAge] = useState('');
   const [showConfetti, setShowConfetti] = useState(false);
-  const secretCode = 'princess'; // Example secret code
+  const secretCode = 'cutie'; // Example secret code
 
   const validateCode = (code) => {
     const isValid = code.toLowerCase() === secretCode;
