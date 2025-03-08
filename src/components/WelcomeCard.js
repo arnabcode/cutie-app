@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, IconButton, Typography } from '@mui/material';
-import { motion } from 'framer-motion';
-import { VolumeUp, VolumeOff } from '@mui/icons-material';
-import { useApp } from '../context/AppContext';
-import Lottie from 'lottie-react';
-import welcomeAnimation from '../animations/welcome-hearts.json';
+import React, { useEffect, useState } from "react";
+import { Box, Button, IconButton, Typography } from "@mui/material";
+import { motion } from "framer-motion";
+import { VolumeUp, VolumeOff } from "@mui/icons-material";
+import { useApp } from "../context/AppContext";
+import Lottie from "lottie-react";
+import welcomeAnimation from "../animations/welcome-hearts.json";
 
 const WelcomeCard = () => {
   const { setCurrentStep, isPlaying, setIsPlaying, FLOW_STEPS } = useApp();
@@ -25,7 +25,7 @@ const WelcomeCard = () => {
 
   useEffect(() => {
     // Add custom cursor styles
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       body {
         cursor: none;
@@ -62,48 +62,55 @@ const WelcomeCard = () => {
     `;
     document.head.appendChild(style);
 
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    const cursorDot = document.createElement('div');
-    cursorDot.className = 'custom-cursor-dot';
+    const cursor = document.createElement("div");
+    cursor.className = "custom-cursor";
+    const cursorDot = document.createElement("div");
+    cursorDot.className = "custom-cursor-dot";
     document.body.appendChild(cursor);
     document.body.appendChild(cursorDot);
 
     const moveCursor = (e) => {
-      cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
-      cursorDot.style.transform = `translate(${e.clientX - 2}px, ${e.clientY - 2}px)`;
+      cursor.style.transform = `translate(${e.clientX - 10}px, ${
+        e.clientY - 10
+      }px)`;
+      cursorDot.style.transform = `translate(${e.clientX - 2}px, ${
+        e.clientY - 2
+      }px)`;
 
       // Create sparkle effect
       if (Math.random() < 0.1) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle";
         sparkle.style.left = `${e.clientX}px`;
         sparkle.style.top = `${e.clientY}px`;
-        sparkle.innerHTML = '✨';
+        sparkle.innerHTML = "✨";
         document.body.appendChild(sparkle);
         setTimeout(() => sparkle.remove(), 500);
       }
     };
 
     const growCursor = () => {
-      cursor.style.transform += ' scale(1.5)';
+      cursor.style.transform += " scale(1.5)";
     };
 
     const shrinkCursor = () => {
-      cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
+      cursor.style.transform = cursor.style.transform.replace(
+        " scale(1.5)",
+        ""
+      );
     };
 
-    document.addEventListener('mousemove', moveCursor);
-    document.querySelectorAll('button, a').forEach(el => {
-      el.addEventListener('mouseenter', growCursor);
-      el.addEventListener('mouseleave', shrinkCursor);
+    document.addEventListener("mousemove", moveCursor);
+    document.querySelectorAll("button, a").forEach((el) => {
+      el.addEventListener("mouseenter", growCursor);
+      el.addEventListener("mouseleave", shrinkCursor);
     });
 
     return () => {
-      document.removeEventListener('mousemove', moveCursor);
-      document.querySelectorAll('button, a').forEach(el => {
-        el.removeEventListener('mouseenter', growCursor);
-        el.removeEventListener('mouseleave', shrinkCursor);
+      document.removeEventListener("mousemove", moveCursor);
+      document.querySelectorAll("button, a").forEach((el) => {
+        el.removeEventListener("mouseenter", growCursor);
+        el.removeEventListener("mouseleave", shrinkCursor);
       });
       cursor.remove();
       cursorDot.remove();
@@ -112,7 +119,7 @@ const WelcomeCard = () => {
   }, []);
 
   useEffect(() => {
-    const audio = new Audio('/sounds/ambient.mp3');
+    const audio = new Audio("/sounds/ambient.mp3");
     audio.loop = true;
     audio.volume = 0.3;
 
@@ -127,7 +134,7 @@ const WelcomeCard = () => {
   }, [isPlaying]);
 
   const handleResponse = (isSarah) => {
-    new Audio('/sounds/pop.mp3').play().catch(console.error);
+    new Audio("/sounds/pop.mp3").play().catch(console.error);
     if (isSarah) {
       setCurrentStep(FLOW_STEPS.SECRET_CODE_FIRST);
     } else {
@@ -141,25 +148,25 @@ const WelcomeCard = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      style={{ height: '100vh', width: '100%' }}
+      style={{ height: "100vh", width: "100%" }}
     >
       <Box
         sx={{
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
         }}
       >
         {!showContent ? (
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100vh',
-              width: '100%',
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+              width: "100%",
             }}
           >
             <Lottie
@@ -172,7 +179,7 @@ const WelcomeCard = () => {
           <>
             <Box
               sx={{
-                position: 'absolute',
+                position: "absolute",
                 top: 20,
                 right: 20,
                 zIndex: 2,
@@ -181,11 +188,11 @@ const WelcomeCard = () => {
               <IconButton
                 onClick={() => setIsPlaying(!isPlaying)}
                 sx={{
-                  color: 'primary.main',
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                  '&:hover': {
-                    transform: 'scale(1.1)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  color: "primary.main",
+                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                  "&:hover": {
+                    transform: "scale(1.1)",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
                   },
                 }}
               >
@@ -200,16 +207,16 @@ const WelcomeCard = () => {
             >
               <Box
                 sx={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                  borderRadius: '20px',
-                  padding: '40px',
-                  textAlign: 'center',
-                  maxWidth: '400px',
-                  position: 'relative',
+                  backgroundColor: "rgba(255, 255, 255, 0.85)",
+                  borderRadius: "20px",
+                  padding: "40px",
+                  textAlign: "center",
+                  maxWidth: "400px",
+                  position: "relative",
                   zIndex: 1,
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                  backdropFilter: "blur(8px)",
+                  border: "1px solid rgba(255, 255, 255, 0.3)",
                 }}
               >
                 <motion.div
@@ -220,12 +227,25 @@ const WelcomeCard = () => {
                   <Typography
                     variant="h3"
                     sx={{
-                      fontFamily: "'Great Vibes', cursive",
-                      color: 'primary.main',
+                      fontFamily: "'Satisfy', cursive",
+                      color: "primary.main",
                       marginBottom: 4,
+                      fontSize: { xs: "1.75rem", md: "1.5rem" },
                     }}
                   >
-                    Hi, are you Sarah?
+                    Hello Madam Ji <br />
+                  </Typography>
+
+                  <Typography
+                    variant="h3"
+                    sx={{
+                      fontFamily: "'Satisfy', cursive",
+                      color: "primary.main",
+                      marginBottom: 4,
+                      fontSize: { xs: "2.5rem", md: "2rem" },
+                    }}
+                  >
+                    Up for your brithday present?
                   </Typography>
                 </motion.div>
 
@@ -236,48 +256,54 @@ const WelcomeCard = () => {
                 >
                   <Box
                     sx={{
-                      display: 'flex',
+                      display: "flex",
                       gap: 2,
-                      justifyContent: 'center',
+                      justifyContent: "center",
                     }}
                   >
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <Button
                         variant="contained"
                         color="primary"
                         onClick={() => handleResponse(true)}
                         sx={{
-                          borderRadius: '25px',
-                          padding: '10px 30px',
-                          fontSize: '1.1rem',
-                          textTransform: 'none',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            boxShadow: '0 0 20px rgba(255,255,255,0.4)',
+                          borderRadius: "25px",
+                          padding: "10px 30px",
+                          fontSize: "1.1rem",
+                          textTransform: "none",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            boxShadow: "0 0 20px rgba(255,255,255,0.4)",
                           },
                         }}
                       >
-                        Yes, I am! 💝
+                        Yassss! 💝
                       </Button>
                     </motion.div>
 
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <Button
                         variant="outlined"
                         color="primary"
                         onClick={() => handleResponse(false)}
                         sx={{
-                          borderRadius: '25px',
-                          padding: '10px 30px',
-                          fontSize: '1.1rem',
-                          textTransform: 'none',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            boxShadow: '0 0 20px rgba(255,255,255,0.2)',
+                          borderRadius: "25px",
+                          padding: "10px 30px",
+                          fontSize: "1.1rem",
+                          textTransform: "none",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            boxShadow: "0 0 20px rgba(255,255,255,0.2)",
                           },
                         }}
                       >
-                        No, I'm not 🤔
+                        Nope 🤔
                       </Button>
                     </motion.div>
                   </Box>
@@ -291,4 +317,4 @@ const WelcomeCard = () => {
   );
 };
 
-export default WelcomeCard; 
+export default WelcomeCard;
